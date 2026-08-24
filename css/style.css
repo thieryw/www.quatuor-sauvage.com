@@ -329,17 +329,80 @@ h1 em, h2 em, h3 em, .accent {
 .nav.is-open::before { opacity: 0; }
 .nav.is-open { background: transparent; color: var(--night-ink); border-bottom-color: transparent; }
 
-.wordmark {
+/* --------------------------------------------------------------------------
+   Marque « Sauvage / Quatuor »
+   Une seule construction, déclinée à trois échelles. Tout est piloté par
+   --mark-size (la taille du mot « Sauvage ») : le filet, l'espacement et le
+   retrait de la sous-ligne se recalculent seuls. Pour agrandir ou réduire la
+   marque quelque part, il n'y a que cette variable à changer.
+   -------------------------------------------------------------------------- */
+.mark {
+  --mark-indent: 1.23em;   /* retrait de la sous-ligne, en em de « Sauvage » */
+  --mark-sub-ink: var(--muted);
+  --mark-rule: var(--rule);
+  display: inline-block;
   font-family: var(--display);
-  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
-  font-weight: 400;
-  letter-spacing: 0.06em;
+  line-height: 0.94;
+  white-space: nowrap;
+}
+.mark-main {
+  display: block;
+  font-weight: 300;
+  font-size: var(--mark-size);
+  letter-spacing: 0.08em;
+  /* l'interlettrage ajoute une chasse après le « e » final : on la retire
+     pour que le bloc reste optiquement aligné à gauche */
+  margin-right: -0.08em;
+}
+.mark-sub {
+  display: block;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: calc(var(--mark-size) * 1.23);
+  margin-top: calc(var(--mark-size) * 0.18);
+  padding-top: calc(var(--mark-size) * 0.15);
+  border-top: 1px solid var(--mark-rule);
+  font-family: var(--body);
+  font-weight: 500;
+  font-size: max(0.6875rem, calc(var(--mark-size) * 0.136));
+  letter-spacing: 0.46em;
+  margin-right: -0.46em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--mark-sub-ink);
+}
+
+/* Variante d'une seule ligne : la barre de nav n'a pas la hauteur d'une
+   marque empilée, et la sous-ligne y deviendrait illisible. */
+.mark--inline { display: inline-flex; align-items: baseline; gap: 0.85em; }
+.mark--inline .mark-sub {
+  margin: 0;
+  padding: 0;
+  border-top: 0;
+  font-size: 0.5rem;
+  letter-spacing: 0.34em;
+  margin-right: -0.34em;
+}
+
+/* Écrans très étroits (≤ 340 px) : la barre de nav n'a plus la place pour
+   les deux mots, « Sauvage » suffit. */
+@media (max-width: 21.25rem) {
+  .mark--inline .mark-sub { display: none; }
+}
+
+/* Sur les fonds profonds (menu plein écran, pied de page) */
+.overlay .mark, .footer .mark {
+  --mark-sub-ink: var(--night-dim);
+  --mark-rule: rgba(236,230,219,0.3);
+}
+
+.wordmark {
+  --mark-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
   line-height: 1;
   white-space: nowrap;
   position: relative;
   z-index: 120;
 }
-.wordmark em { font-style: italic; letter-spacing: 0.02em; }
 
 .nav-right {
   display: flex;
@@ -548,15 +611,12 @@ h1 em, h2 em, h3 em, .accent {
   margin-inline: auto;
 }
 .hero-mark {
-  font-family: var(--display);
-  font-weight: 300;
-  font-size: clamp(3rem, 10.5vw, 9rem);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+  --mark-size: clamp(2.75rem, 9.5vw, 8rem);
+  --mark-sub-ink: rgba(255,255,255,0.82);
+  --mark-rule: rgba(255,255,255,0.45);
   margin: 0;
   text-shadow: 0 1px 40px rgba(0,0,0,0.25);
 }
-.hero-mark em { font-style: italic; }
 .hero-tagline {
   font-family: var(--display);
   font-style: italic;
@@ -682,26 +742,41 @@ h1 em, h2 em, h3 em, .accent {
 }
 .duo a:hover img { transform: scale(1.03); }
 .duo figcaption,
-.grid-media figcaption {
-  margin-top: 0.7rem;
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
+/* Galerie « justifiée » : chaque rangée occupe toute la largeur et toutes les
+   images d'une même rangée ont exactement la même hauteur. Les proportions
+   réelles sont conservées — plus aucun recadrage.
 
+   Chaque <figure> porte son rapport largeur / hauteur dans --ar
+   (paysage 3:2 → 1.5 ; portrait 2:3 → 0.666 ; carré → 1).
+   --gallery-unit est une largeur de référence exprimée en pourcentage de la
+   galerie : c'est elle qui décide du nombre d'images par rangée. Plus elle est
+   grande, moins il y a d'images par rangée et plus elles sont hautes.
+   Étant un pourcentage, la composition des rangées reste la même quelle que
+   soit la largeur de l'écran — seule l'échelle change. */
 .grid-media {
-  display: grid;
-  gap: clamp(1.25rem, 3vw, 2.75rem);
-  grid-template-columns: 1fr;
+  --gallery-unit: 32%;
+  --gallery-gap: 0.625rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gallery-gap);
 }
-@media (min-width: 46rem) { .grid-media { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 82rem) { .grid-media { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 64rem) { .grid-media { --gallery-unit: 21%; } }
 
-.grid-media figure { margin: 0; }
+/* Dernière rangée : elle s'étire sur toute la largeur, ce qui la rend plus
+   haute que les précédentes — le bloc se referme proprement. Si un jour une
+   seule image se retrouve seule sur cette dernière rangée et paraît trop
+   grande, décommenter la ligne ci-dessous : la rangée restera alors alignée
+   à gauche, à hauteur normale, en laissant du blanc à droite. */
+/* .grid-media::after { content: ""; flex: 1000000 0 0; } */
+
+.grid-media figure {
+  margin: 0;
+  flex: var(--ar, 1.5) 1 calc(var(--ar, 1.5) * var(--gallery-unit));
+}
 .grid-media .shot {
   display: block;
   width: 100%;
+  aspect-ratio: var(--ar, 1.5);
   overflow: hidden;
   background: var(--paper-deep);
   cursor: zoom-in;
@@ -716,10 +791,33 @@ h1 em, h2 em, h3 em, .accent {
 }
 .grid-media .shot:hover img { transform: scale(1.025); }
 
-/* Rythme irrégulier : certaines images plus hautes */
-.grid-media .shot { aspect-ratio: 4 / 5; }
-.grid-media figure:nth-child(3n+1) .shot { aspect-ratio: 4 / 3; }
-.grid-media figure:nth-child(5n) .shot { aspect-ratio: 1 / 1; }
+/* Sur un téléphone, une image par rangée : des rangées justifiées y
+   donneraient des vignettes minuscules. */
+@media (max-width: 47.999rem) {
+  .grid-media { --gallery-gap: 0.75rem; }
+  .grid-media figure { flex: 1 1 100%; }
+}
+
+/* Le crédit reste dans le code — la visionneuse et les lecteurs d'écran le
+   lisent — mais ne s'affiche plus sous chaque image : il briserait
+   l'alignement des rangées. Une seule ligne sous la galerie suffit. */
+.grid-media figcaption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.gallery-credit {
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
 
 .video-grid {
   display: grid;
@@ -862,22 +960,20 @@ h1 em, h2 em, h3 em, .accent {
 }
 
 .footer-mark {
-  font-family: var(--display);
-  font-size: clamp(2.125rem, 5.5vw, 4rem);
-  font-weight: 300;
-  line-height: 1.05;
-  letter-spacing: 0.015em;
+  --mark-size: clamp(2rem, 5vw, 3.5rem);
   color: var(--night-ink);
   margin: 0;
 }
-.footer-mark em { font-style: italic; }
 .footer-sub {
-  margin: 0.9rem 0 0;
-  font-size: 0.6875rem;
-  font-weight: 500;
+  /* la marque se termine désormais par « QUATUOR » en capitales espacées :
+     il faut plus d'air ici, sinon la ligne de villes s'y confond. */
+  margin: 1.9rem 0 0;
+  font-size: 0.625rem;
+  font-weight: 400;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--night-dim);
+  opacity: 0.85;
 }
 
 /* rang de liens séparés par un losange */
