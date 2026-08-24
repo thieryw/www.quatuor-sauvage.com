@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.quatuorsauvage.com/sitemap.xml
+# ▸▸ DOMAINE : décommenter et mettre le vrai domaine une fois enregistré.
+# Sitemap: https://www.quatuorsauvage.com/sitemap.xml

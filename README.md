@@ -1,7 +1,9 @@
 # Quatuor Sauvage — site
 
 Site statique, sans framework ni étape de build. HTML + une feuille de style + un
-petit script vanilla. Prévu pour GitHub Pages avec un nom de domaine personnalisé.
+petit script vanilla. Prévu pour GitHub Pages — les chemins sont relatifs,
+le site fonctionne donc aussi bien sous un sous-dossier de projet
+(`utilisateur.github.io/depot/`) qu'à la racine d'un domaine.
 
 ```
 /                     français (racine)
@@ -15,7 +17,7 @@ petit script vanilla. Prévu pour GitHub Pages avec un nom de domaine personnali
 /js/main.js           menu plein écran, barre de nav, apparitions, visionneuse
 /fonts/               polices auto-hébergées (.woff2) — ne pas renommer
 /images/              tous les visuels (actuellement des gabarits gris)
-CNAME                 nom de domaine — à modifier
+CNAME                 (absent) — à créer le jour où un domaine est enregistré
 .nojekyll             empêche GitHub de retraiter le site
 robots.txt sitemap.xml
 ```
@@ -29,7 +31,7 @@ Tous les emplacements à compléter sont marqués **`▸▸`** dans les fichiers
 
 | Quoi | Où |
 |---|---|
-| Nom de domaine `www.quatuorsauvage.com` | `CNAME`, `robots.txt`, `sitemap.xml`, balises `<link rel="canonical">` / `og:` de chaque page |
+| Nom de domaine (une fois enregistré) | `CNAME` (à recréer), `robots.txt`, `sitemap.xml`, et les balises `canonical` / `hreflang` / `og:` commentées en tête de chaque page |
 | Accroche du héros | `index.html` et `en/index.html`, `<p class="hero-tagline">` |
 | Identifiant vidéo `VIDEO_ID` | accueil + page médias, FR et EN |
 | Phrase de présentation de la vidéo | accueil, `<p class="lede">` du bloc « À l'affiche » |
@@ -67,18 +69,44 @@ C'est **un seul créneau**, pas un fil d'actualité : une vidéo et une phrase.
 Pour l'actualiser, on remplace le contenu du bloc — la page ne vieillit jamais et
 il n'y a jamais de liste de dates clairsemée à assumer.
 
+## Chemins : tout est relatif
+
+Aucun chemin interne ne commence par `/`. Depuis la racine on écrit
+`css/style.css`, depuis `/en/` on écrit `../css/style.css`, et dans la feuille
+de style les `url()` sont relatives au fichier CSS lui-même (`../fonts/…`).
+
+C'est ce qui permet au site de fonctionner **au même endroit dans les deux
+cas** : servi sous un sous-dossier (`utilisateur.github.io/depot/`, le cas d'un
+dépôt de projet) comme à la racine d'un domaine (`quatuorsauvage.com/`). Des
+chemins absolus (`/css/style.css`) casseraient dans le premier cas, puisqu'ils
+seraient cherchés à `utilisateur.github.io/css/style.css`.
+
+Corollaire à retenir en ajoutant une page : ne jamais écrire `href="/quelque-
+chose"`. Depuis la racine, `href="media.html"` ; depuis `/en/`,
+`href="../media.html"`.
+
 ## Mise en ligne (GitHub Pages)
 
-1. Créer un dépôt (public) et y pousser le contenu de ce dossier à la racine.
-2. `Settings ▸ Pages ▸ Source : Deploy from a branch`, branche `main`, dossier `/ (root)`.
-3. Renseigner le domaine dans `Settings ▸ Pages ▸ Custom domain` (il doit
-   correspondre au fichier `CNAME`), puis cocher **Enforce HTTPS**.
-4. Chez le registrar du domaine, créer :
-   - un enregistrement `CNAME` pour `www` → `<utilisateur>.github.io`
-   - et, pour le domaine nu, quatre enregistrements `A` vers
-     `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
+1. Créer un dépôt public et y pousser le contenu de ce dossier à la racine.
+2. `Settings ▸ Pages ▸ Source : Deploy from a branch`, branche `main`,
+   dossier `/ (root)`.
+3. Le site est en ligne à `https://<utilisateur>.github.io/<dépôt>/`.
 
-Le certificat HTTPS peut mettre quelques minutes à être délivré.
+### Plus tard, avec un nom de domaine
+
+1. Créer un fichier `CNAME` à la racine, contenant le domaine et rien d'autre
+   (ex. `www.quatuorsauvage.com`).
+2. `Settings ▸ Pages ▸ Custom domain` : y saisir le même domaine, puis cocher
+   **Enforce HTTPS**. Le certificat met quelques minutes à être délivré.
+3. Chez le registrar :
+   - un enregistrement `CNAME` pour `www` → `<utilisateur>.github.io`
+   - pour le domaine nu, quatre enregistrements `A` vers
+     `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
+4. Réactiver les balises `canonical`, `hreflang` et `og:` commentées en tête des
+   huit pages (`grep -rn "▸▸ DOMAINE" .`), en y mettant le vrai domaine, puis
+   mettre à jour `sitemap.xml` et `robots.txt`.
+
+Les chemins internes, eux, n'ont rien à changer.
 
 ## Aperçu en local
 
@@ -87,8 +115,8 @@ python3 -m http.server 8000
 # puis http://localhost:8000
 ```
 
-Un simple double-clic sur `index.html` ne suffit pas : les chemins commencent par
-`/`, il faut un serveur.
+Un simple double-clic sur `index.html` ouvre bien la page, mais le menu et la
+visionneuse ont besoin d'un serveur pour se comporter normalement.
 
 ## Notes techniques
 
