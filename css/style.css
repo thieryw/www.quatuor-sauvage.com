@@ -1,0 +1,816 @@
+/* ==========================================================================
+   Quatuor Sauvage — feuille de style unique / single stylesheet
+   Édition : sobriété éditoriale, quasi-monochrome, grands titres sérif
+   avec un seul mot en italique comme accent.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. Polices — auto-hébergées (aucune connexion à un serveur tiers)
+   Cormorant Garamond & Inter, SIL Open Font License 1.1.
+   Fichiers dans /fonts/. Sous-ensembles latin + latin-ext.
+   -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Cormorant Garamond"; font-style: normal; font-weight: 300; font-display: swap;
+  src: url("/fonts/cormorant-garamond-latin-ext-300-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Cormorant Garamond"; font-style: normal; font-weight: 300; font-display: swap;
+  src: url("/fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Cormorant Garamond"; font-style: italic; font-weight: 300; font-display: swap;
+  src: url("/fonts/cormorant-garamond-latin-ext-300-italic.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Cormorant Garamond"; font-style: italic; font-weight: 300; font-display: swap;
+  src: url("/fonts/cormorant-garamond-latin-300-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Cormorant Garamond"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/fonts/cormorant-garamond-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Cormorant Garamond"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Cormorant Garamond"; font-style: italic; font-weight: 400; font-display: swap;
+  src: url("/fonts/cormorant-garamond-latin-ext-400-italic.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Cormorant Garamond"; font-style: italic; font-weight: 400; font-display: swap;
+  src: url("/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 300; font-display: swap;
+  src: url("/fonts/inter-latin-ext-300-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 300; font-display: swap;
+  src: url("/fonts/inter-latin-300-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/fonts/inter-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("/fonts/inter-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("/fonts/inter-latin-ext-500-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("/fonts/inter-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Palette — papier chaud, encre presque noire */
+  --paper:        #f3f1ed;
+  --paper-deep:   #eae7e1;
+  --ink:          #171613;
+  --ink-soft:     #3a3833;
+  --muted:        #7c766b;
+  --rule:         #d9d4ca;
+  --paper-invert: #12110f;
+
+  /* Typographie */
+  --display: "Cormorant Garamond", "Iowan Old Style", Garamond, Georgia, "Times New Roman", serif;
+  --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  /* Rythme */
+  --gutter: clamp(1.5rem, 5vw, 5.5rem);
+  --section: clamp(5rem, 12vw, 11rem);
+  --measure: 34em;
+
+  /* Chrome */
+  --nav-h: 5.25rem;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset / base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  font-weight: 350;
+  letter-spacing: 0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body.is-locked { overflow: hidden; }
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+p { margin: 0 0 1.35em; }
+p:last-child { margin-bottom: 0; }
+
+::selection { background: var(--ink); color: var(--paper); }
+
+:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 300;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.skip-link:focus { left: 0; }
+
+/* --------------------------------------------------------------------------
+   3. Typographie éditoriale
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 300;
+  letter-spacing: -0.012em;
+  line-height: 1.06;
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* Le geste signature : un seul mot en italique */
+h1 em, h2 em, h3 em, .accent {
+  font-style: italic;
+  font-weight: 300;
+}
+
+.display-xl { font-size: clamp(3rem, 9.5vw, 8.5rem); }
+.display-l  { font-size: clamp(2.5rem, 6.5vw, 5.25rem); }
+.display-m  { font-size: clamp(2rem, 4vw, 3.25rem); }
+.display-s  { font-size: clamp(1.5rem, 2.4vw, 2rem); line-height: 1.15; }
+
+/* Étiquette en petites capitales espacées */
+.eyebrow {
+  font-family: var(--body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 clamp(1.75rem, 3vw, 2.75rem);
+  display: block;
+}
+
+.lede {
+  font-family: var(--display);
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  line-height: 1.5;
+  font-weight: 300;
+  color: var(--ink-soft);
+  letter-spacing: 0;
+}
+
+.prose { max-width: var(--measure); }
+.prose p + p { margin-top: 0; }
+
+.muted { color: var(--muted); }
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+/* Lien souligné discret */
+.link {
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.1em;
+  transition: border-color 0.35s var(--ease), color 0.35s var(--ease);
+}
+.link:hover { border-color: var(--ink); }
+
+/* Lien « suite » avec filet animé */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.link-arrow::after {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.45s var(--ease);
+}
+.link-arrow:hover::after { width: 4rem; }
+
+/* --------------------------------------------------------------------------
+   4. Mise en page
+   -------------------------------------------------------------------------- */
+.wrap {
+  padding-inline: var(--gutter);
+  max-width: 1560px;
+  margin-inline: auto;
+}
+
+.section { padding-block: var(--section); }
+.section--tight { padding-block: clamp(3.5rem, 7vw, 6.5rem); }
+
+/* Grille éditoriale : étiquette à gauche, contenu à droite */
+.editorial {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem) clamp(2rem, 6vw, 6rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 62rem) {
+  .editorial { grid-template-columns: minmax(9rem, 15vw) minmax(0, 1fr); }
+  .editorial .eyebrow { margin-bottom: 0; padding-top: 0.75rem; }
+}
+
+/* --------------------------------------------------------------------------
+   5. Navigation
+   -------------------------------------------------------------------------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* aligne le bandeau sur la colonne de contenu, y compris au-delà de 1560 px */
+  padding-inline: max(var(--gutter), calc((100% - 1560px) / 2 + var(--gutter)));
+  color: var(--ink);
+  transition: background-color 0.5s var(--ease), color 0.5s var(--ease),
+              border-color 0.5s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+/* Au-dessus d'une image plein cadre : texte clair, fond transparent */
+.nav.is-over-hero {
+  color: #fff;
+  background: transparent;
+}
+.nav.is-solid {
+  background: var(--paper);
+  color: var(--ink);
+  border-bottom-color: var(--rule);
+}
+.nav.is-open { background: transparent; color: var(--ink); border-bottom-color: transparent; }
+
+.wordmark {
+  font-family: var(--display);
+  font-size: clamp(1.0625rem, 1.5vw, 1.3125rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  white-space: nowrap;
+  position: relative;
+  z-index: 120;
+}
+.wordmark em { font-style: italic; letter-spacing: 0.02em; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  position: relative;
+  z-index: 120;
+}
+
+.lang {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.lang span[aria-current] { opacity: 1; }
+.lang a { opacity: 0.5; transition: opacity 0.3s var(--ease); }
+.lang a:hover { opacity: 1; }
+.lang .sep { opacity: 0.35; }
+
+.menu-toggle {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0.5rem 0;
+  margin: 0;
+  color: inherit;
+  font-family: var(--body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+.menu-toggle .bars {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 20px;
+}
+.menu-toggle .bars i {
+  display: block;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.4s var(--ease), opacity 0.3s var(--ease);
+}
+.nav.is-open .bars i:first-child { transform: translateY(2.5px) rotate(45deg); }
+.nav.is-open .bars i:last-child { transform: translateY(-2.5px) rotate(-45deg); }
+
+.menu-toggle .label-open { display: inline; }
+.menu-toggle .label-close { display: none; }
+.nav.is-open .label-open { display: none; }
+.nav.is-open .label-close { display: inline; }
+
+/* Menu plein écran */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--nav-h) max(var(--gutter), calc((100% - 1560px) / 2 + var(--gutter))) var(--gutter);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.55s var(--ease), visibility 0.55s var(--ease);
+}
+.overlay.is-open { opacity: 1; visibility: visible; }
+/* .wrap est ici un élément flex : sans width, les marges auto le recentrent
+   sur sa largeur intrinsèque et le menu se décale. */
+.overlay > .wrap { width: 100%; max-width: none; padding-inline: 0; }
+
+.overlay-nav {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 1.2vw, 0.9rem);
+}
+.overlay-nav a {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  width: max-content;
+  max-width: 100%;
+  opacity: 0;
+  transform: translateY(0.6rem);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.overlay.is-open .overlay-nav a { opacity: 1; transform: none; }
+.overlay.is-open .overlay-nav a:nth-child(1) { transition-delay: 0.10s; }
+.overlay.is-open .overlay-nav a:nth-child(2) { transition-delay: 0.16s; }
+.overlay.is-open .overlay-nav a:nth-child(3) { transition-delay: 0.22s; }
+.overlay.is-open .overlay-nav a:nth-child(4) { transition-delay: 0.28s; }
+.overlay-nav a:hover { font-style: italic; }
+.overlay-nav a[aria-current="page"] { font-style: italic; color: var(--muted); }
+
+.overlay-foot {
+  margin-top: clamp(3rem, 8vw, 6rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease) 0.34s;
+}
+.overlay.is-open .overlay-foot { opacity: 1; }
+.overlay-foot a:hover { color: var(--ink); }
+
+/* --------------------------------------------------------------------------
+   6. Héros
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  color: #fff;
+  overflow: hidden;
+}
+.hero-media {
+  position: absolute;
+  inset: 0;
+}
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,9,0.42) 0%, rgba(10,10,9,0.12) 38%, rgba(10,10,9,0.55) 100%);
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-inline: var(--gutter);
+  padding-bottom: clamp(3rem, 8vh, 6rem);
+  max-width: 1560px;
+  margin-inline: auto;
+}
+.hero-mark {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(3rem, 10.5vw, 9rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-shadow: 0 1px 40px rgba(0,0,0,0.25);
+}
+.hero-mark em { font-style: italic; }
+.hero-tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.125rem, 2.1vw, 1.75rem);
+  line-height: 1.4;
+  margin: clamp(1rem, 2vw, 1.6rem) 0 0;
+  max-width: 30ch;
+  opacity: 0.94;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: clamp(1.25rem, 3vh, 2.25rem);
+  right: var(--gutter);
+  z-index: 2;
+  font-size: 0.625rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+.scroll-cue::after {
+  content: "";
+  width: 1px;
+  height: 2.5rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0));
+}
+
+/* En-tête de page intérieure */
+.page-head {
+  padding-top: calc(var(--nav-h) + clamp(3.5rem, 9vw, 8rem));
+  padding-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+/* --------------------------------------------------------------------------
+   7. Bloc « à l'affiche » (créneau unique, jamais un fil d'actualité)
+   -------------------------------------------------------------------------- */
+.featured-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--paper-invert);
+  overflow: hidden;
+}
+.featured-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.featured-caption {
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  display: grid;
+  gap: 0.75rem clamp(2rem, 5vw, 4rem);
+}
+@media (min-width: 62rem) {
+  .featured-caption { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; }
+}
+.featured-caption .lede { max-width: 46ch; }
+
+/* --------------------------------------------------------------------------
+   8. Membres
+   -------------------------------------------------------------------------- */
+.members {
+  display: grid;
+  gap: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr;
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+@media (min-width: 46rem) { .members { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 78rem) { .members { grid-template-columns: repeat(4, 1fr); } }
+
+.member figure { margin: 0; }
+.member img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.02);
+  transition: filter 0.7s var(--ease);
+}
+.member:hover img { filter: grayscale(0.55); }
+.member h3 {
+  font-size: clamp(1.375rem, 1.9vw, 1.75rem);
+  margin: clamp(1rem, 1.8vw, 1.5rem) 0 0.15rem;
+}
+.member .role {
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+.member .bio { font-size: 0.9375rem; line-height: 1.8; color: var(--ink-soft); }
+
+/* --------------------------------------------------------------------------
+   9. Images / grille média
+   -------------------------------------------------------------------------- */
+.bleed {
+  width: 100%;
+  margin-block: 0;
+}
+.bleed img {
+  width: 100%;
+  height: clamp(20rem, 62vh, 46rem);
+  object-fit: cover;
+}
+
+.duo {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 46rem) { .duo { grid-template-columns: 1fr 1fr; } }
+.duo figure { margin: 0; overflow: hidden; }
+.duo img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+.duo a:hover img { transform: scale(1.03); }
+.duo figcaption,
+.grid-media figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.grid-media {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2.75rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 46rem) { .grid-media { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 82rem) { .grid-media { grid-template-columns: repeat(3, 1fr); } }
+
+.grid-media figure { margin: 0; }
+.grid-media .shot {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  background: var(--paper-deep);
+  cursor: zoom-in;
+  border: 0;
+  padding: 0;
+}
+.grid-media .shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease), filter 0.7s var(--ease);
+}
+.grid-media .shot:hover img { transform: scale(1.025); }
+
+/* Rythme irrégulier : certaines images plus hautes */
+.grid-media .shot { aspect-ratio: 4 / 5; }
+.grid-media figure:nth-child(3n+1) .shot { aspect-ratio: 4 / 3; }
+.grid-media figure:nth-child(5n) .shot { aspect-ratio: 1 / 1; }
+
+.video-grid {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 62rem) { .video-grid { grid-template-columns: repeat(2, 1fr); } }
+.video-grid figure { margin: 0; }
+
+/* --------------------------------------------------------------------------
+   10. Visionneuse (lightbox)
+   -------------------------------------------------------------------------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(18,17,15,0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2.5rem, 6vw, 5rem);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s var(--ease), visibility 0.4s var(--ease);
+}
+.lightbox.is-open { opacity: 1; visibility: visible; }
+.lightbox img {
+  max-width: 100%;
+  max-height: 82vh;
+  object-fit: contain;
+}
+.lightbox figcaption {
+  margin-top: 1rem;
+  text-align: center;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.lightbox figure { margin: 0; }
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  background: none;
+  border: 0;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-family: var(--body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 1rem;
+  transition: color 0.3s var(--ease);
+}
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover { color: #fff; }
+.lightbox-close { top: 0.75rem; right: 0.75rem; }
+.lightbox-prev { left: 0.25rem; top: 50%; transform: translateY(-50%); }
+.lightbox-next { right: 0.25rem; top: 50%; transform: translateY(-50%); }
+
+/* --------------------------------------------------------------------------
+   11. Contact
+   -------------------------------------------------------------------------- */
+.contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(2rem, 4vw, 3rem);
+}
+@media (min-width: 46rem) { .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.contact-list .k {
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.6rem;
+}
+/* les liens empilés ne prennent que la largeur de leur texte */
+.contact-list .v > .link { align-self: flex-start; }
+
+.contact-list .v {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.4vw, 1.875rem);
+  font-weight: 300;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+/* --------------------------------------------------------------------------
+   12. Pied de page
+   -------------------------------------------------------------------------- */
+.footer {
+  border-top: 1px solid var(--rule);
+  padding-block: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
+}
+.footer-grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 46rem) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+.footer h4 {
+  font-family: var(--body);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+.footer ul { list-style: none; margin: 0; padding: 0; }
+.footer li { margin-bottom: 0.5rem; }
+.footer a:hover { color: var(--muted); }
+.footer-mark {
+  font-family: var(--display);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+.footer-mark em { font-style: italic; }
+.footer-bottom {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   13. Mentions légales / texte long
+   -------------------------------------------------------------------------- */
+.legal { max-width: 44em; }
+.legal h2 {
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  margin-bottom: 0.9rem;
+}
+.legal h2:first-of-type { margin-top: 0; }
+.legal p, .legal ul { font-size: 0.9375rem; line-height: 1.85; color: var(--ink-soft); }
+.legal ul { padding-left: 1.1rem; margin: 0 0 1.35em; }
+.legal li { margin-bottom: 0.35rem; }
+
+/* --------------------------------------------------------------------------
+   14. Apparition au défilement
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   15. Impression
+   -------------------------------------------------------------------------- */
+@media print {
+  .nav, .overlay, .scroll-cue, .lightbox { display: none !important; }
+  body { background: #fff; color: #000; }
+}
