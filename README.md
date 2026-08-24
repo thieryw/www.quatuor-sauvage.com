@@ -99,6 +99,31 @@ Un simple double-clic sur `index.html` ne suffit pas : les chemins commencent pa
   Rien n'est chargé depuis Google Fonts : pas de connexion à un serveur tiers,
   ce qui simplifie la conformité RGPD. Les `@font-face` sont en tête de
   `css/style.css`.
+- Bandeau de navigation : fond `--band` (un ton plus profond que le papier)
+  recouvert d'un grain fin `--grain` — un SVG `feTurbulence` encodé en URI de
+  données, donc aucun fichier image à gérer. `--band`, `--band-rule` et
+  `--grain-size` sont en tête de `css/style.css` : changer la teinte, c'est
+  modifier une ligne. Sur la page d'accueil le bandeau reste transparent
+  au-dessus de la photo et apparaît en fondu au défilement ; sur les pages
+  intérieures il est visible d'emblée (classe `is-solid` posée dans le HTML).
+- Menu plein écran : la photo `/images/hero.jpg` sert de fond, très assombrie.
+  L'assombrissement se fait en deux temps dans `css/style.css` — `.overlay::before`
+  porte l'image (`brightness` écrase les hautes lumières, `opacity` la fond dans
+  le noir) et `.overlay::after` pose un voile `rgba(26,25,23,0.62)` par-dessus.
+  Conséquence utile : le contraste du texte ne dépend pas de la photo choisie.
+  Pour rendre l'image plus présente, monter l'`opacity` de `.overlay::before` ou
+  baisser le voile — mais vérifier que les liens restent lisibles.
+  La page courante s'affiche en italique dans le ton chaud `--night-accent`.
+- Pied de page « clair-obscur » : fond profond `--night`, lumière rasante en
+  diagonale (un dégradé sur `.footer::before`), grain en surimpression
+  (`.footer::after`), composition centrée — marque, ligne de villes, rang de
+  liens séparés par des losanges, icônes sociales, mentions. Les quatre
+  variables `--night`, `--night-ink`, `--night-soft` et `--night-dim` pilotent
+  l'ensemble ; l'angle et l'intensité de la lumière sont dans le dégradé de
+  `.footer::before`. Les icônes sociales sont des SVG en ligne (tracé, pas de
+  fichier ni de police d'icônes) : elles héritent de `currentColor`.
+  Le pied de page est identique sur les huit pages — modifier un lien veut
+  dire le modifier dans les quatre fichiers de la langue concernée.
 - Accessibilité : lien d'évitement, focus visible, `aria-expanded` sur le menu,
   visionneuse pilotable au clavier (`Échap`, `←`, `→`), `prefers-reduced-motion`
   respecté.

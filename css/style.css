@@ -93,6 +93,23 @@
   --rule:         #d9d4ca;
   --paper-invert: #12110f;
 
+  /* Bandeaux (barre de navigation, menu, pied de page) : un ton plus profond
+     que le papier, plus un grain fin. Pour changer la teinte des bandeaux,
+     il suffit de modifier --band et --band-rule. */
+  --band:         #eae6df;
+  --band-rule:    #cfc9bd;
+  /* Grain : SVG feTurbulence désaturé, encodé en URI de données.
+     --grain-size règle la finesse, l'opacité est dans le SVG lui-même. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.38'/%3E%3C/svg%3E");
+  --grain-size: 180px;
+
+  /* Pied de page « clair-obscur » : fond profond, lumière rasante, texte taupe. */
+  --night:      #1a1917;
+  --night-ink:  #ece6db;
+  --night-soft: #cec5b6;
+  --night-dim:  #8b8377;
+  --night-accent: #c7ab84;
+
   /* Typographie */
   --display: "Cormorant Garamond", "Iowan Old Style", Garamond, Georgia, "Times New Roman", serif;
   --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -290,12 +307,27 @@ h1 em, h2 em, h3 em, .accent {
   color: #fff;
   background: transparent;
 }
-.nav.is-solid {
-  background: var(--paper);
-  color: var(--ink);
-  border-bottom-color: var(--rule);
+/* Bandeau texturé. Le grain vit sur un pseudo-élément pour pouvoir apparaître
+   en fondu comme la couleur : une image de fond ne se transitionne pas. */
+.nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--grain);
+  background-size: var(--grain-size) var(--grain-size);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
 }
-.nav.is-open { background: transparent; color: var(--ink); border-bottom-color: transparent; }
+.nav.is-solid {
+  background-color: var(--band);
+  color: var(--ink);
+  border-bottom-color: var(--band-rule);
+}
+.nav.is-solid::before { opacity: 1; }
+.nav.is-open::before { opacity: 0; }
+.nav.is-open { background: transparent; color: var(--night-ink); border-bottom-color: transparent; }
 
 .wordmark {
   font-family: var(--display);
@@ -373,7 +405,13 @@ h1 em, h2 em, h3 em, .accent {
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: var(--paper);
+  /* Menu plein écran « clair-obscur » : la photo du héros, très assombrie,
+     sert de fond. L'assombrissement ne dépend pas de la photo : le fond reste
+     --night et l'image n'est composée qu'à 22 % — quelle que soit l'image
+     déposée dans /images/hero.jpg, le texte reste lisible. */
+  background-color: var(--night);
+  color: var(--night-soft);
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -382,6 +420,46 @@ h1 em, h2 em, h3 em, .accent {
   visibility: hidden;
   transition: opacity 0.55s var(--ease), visibility 0.55s var(--ease);
 }
+/* la photo */
+.overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  /* ▸▸ pour utiliser une autre image que celle du héros, changer ce chemin */
+  background: url("/images/hero.jpg") center / cover no-repeat;
+  /* Deux réglages plutôt qu'un : brightness écrase les hautes lumières de la
+     photo, opacity la fond dans le noir. Même une image très claire retombe
+     sous #3d3d3a — le contraste du texte est garanti quelle que soit la photo.
+     Pour laisser l'image plus présente : monter opacity, pas brightness. */
+  opacity: 0.4;
+  filter: grayscale(0.35) brightness(0.45) contrast(1.05);
+  pointer-events: none;
+}
+/* la lumière rasante + le grain, comme au pied de page */
+.overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    /* 1. la lumière rasante, au-dessus de tout */
+    linear-gradient(
+      107deg,
+      rgba(255, 248, 236, 0)    0%,
+      rgba(255, 248, 236, 0.05) 24%,
+      rgba(255, 248, 236, 0.09) 34%,
+      rgba(255, 248, 236, 0.03) 46%,
+      rgba(255, 248, 236, 0)    62%),
+    /* 2. le voile sombre : c'est lui qui garantit le contraste du texte,
+          quelle que soit la photo. Baisser sa valeur éclaircit le menu.
+          (Pas de grain ici : la photo apporte déjà sa propre matière, et un
+          grain gris sur fond sombre l'éclaircirait au lieu de le texturer.) */
+    linear-gradient(rgba(26, 25, 23, 0.62), rgba(26, 25, 23, 0.62));
+  background-size: cover, cover;
+  pointer-events: none;
+}
+
 .overlay.is-open { opacity: 1; visibility: visible; }
 /* .wrap est ici un élément flex : sans width, les marges auto le recentrent
    sur sa largeur intrinsèque et le menu se décale. */
@@ -409,23 +487,29 @@ h1 em, h2 em, h3 em, .accent {
 .overlay.is-open .overlay-nav a:nth-child(2) { transition-delay: 0.16s; }
 .overlay.is-open .overlay-nav a:nth-child(3) { transition-delay: 0.22s; }
 .overlay.is-open .overlay-nav a:nth-child(4) { transition-delay: 0.28s; }
-.overlay-nav a:hover { font-style: italic; }
-.overlay-nav a[aria-current="page"] { font-style: italic; color: var(--muted); }
+.overlay-nav a { color: var(--night-soft); transition: color 0.35s var(--ease); }
+/* au survol : la couleur seule — l'italique reste réservé à la page courante */
+.overlay-nav a:hover { color: var(--night-ink); }
+/* la page courante, en italique et dans le ton chaud */
+.overlay-nav a[aria-current="page"] { font-style: italic; color: var(--night-accent); }
 
 .overlay-foot {
-  margin-top: clamp(3rem, 8vw, 6rem);
+  margin-top: clamp(2.5rem, 7vw, 5rem);
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem 2rem;
+  align-items: center;
+  gap: 1rem clamp(1.5rem, 3vw, 2.5rem);
   font-size: 0.75rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--night-soft);
   opacity: 0;
   transition: opacity 0.6s var(--ease) 0.34s;
 }
 .overlay.is-open .overlay-foot { opacity: 1; }
-.overlay-foot a:hover { color: var(--ink); }
+.overlay-foot a { color: var(--night-soft); transition: color 0.35s var(--ease); }
+.overlay-foot a:hover { color: var(--night-ink); }
+.overlay-foot a[aria-current="page"] { color: var(--night-accent); }
 
 /* --------------------------------------------------------------------------
    6. Héros
@@ -731,48 +815,124 @@ h1 em, h2 em, h3 em, .accent {
 /* --------------------------------------------------------------------------
    12. Pied de page
    -------------------------------------------------------------------------- */
+/* Bloc clair-obscur : fond profond, lumière rasante en diagonale, composition
+   centrée. Le grain du reste du site est conservé, à opacité réduite. */
 .footer {
-  border-top: 1px solid var(--rule);
-  padding-block: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--night);
+  color: var(--night-soft);
+  padding-block: clamp(4rem, 9vw, 7rem) clamp(2.25rem, 4vw, 3rem);
+  text-align: center;
 }
-.footer-grid {
-  display: grid;
-  gap: clamp(2.5rem, 5vw, 4rem);
-  grid-template-columns: 1fr;
+/* la lumière */
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: -25% -15%;
+  z-index: -2;
+  background: linear-gradient(
+    107deg,
+    rgba(255, 248, 236, 0)    0%,
+    rgba(255, 248, 236, 0.05) 22%,
+    rgba(255, 248, 236, 0.10) 33%,
+    rgba(255, 248, 236, 0.04) 45%,
+    rgba(255, 248, 236, 0)    60%);
+  pointer-events: none;
 }
-@media (min-width: 46rem) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
-.footer h4 {
-  font-family: var(--body);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 1rem;
+/* le grain */
+.footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: var(--grain);
+  background-size: var(--grain-size) var(--grain-size);
+  opacity: 0.45;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
-.footer ul { list-style: none; margin: 0; padding: 0; }
-.footer li { margin-bottom: 0.5rem; }
-.footer a:hover { color: var(--muted); }
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.75rem, 4vw, 2.75rem);
+}
+
 .footer-mark {
   font-family: var(--display);
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-size: clamp(2.125rem, 5.5vw, 4rem);
   font-weight: 300;
-  line-height: 1.1;
+  line-height: 1.05;
+  letter-spacing: 0.015em;
+  color: var(--night-ink);
+  margin: 0;
 }
 .footer-mark em { font-style: italic; }
-.footer-bottom {
-  margin-top: clamp(3rem, 6vw, 4.5rem);
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--rule);
+.footer-sub {
+  margin: 0.9rem 0 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--night-dim);
+}
+
+/* rang de liens séparés par un losange */
+.footer-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.75rem;
-  justify-content: space-between;
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem clamp(1rem, 2.5vw, 1.75rem);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
 }
+.footer-nav a { color: var(--night-soft); transition: color 0.35s var(--ease); }
+.footer-nav a:hover { color: var(--night-ink); }
+.footer-nav .dot {
+  width: 4px;
+  height: 4px;
+  flex: 0 0 auto;
+  background: var(--night-dim);
+  transform: rotate(45deg);
+}
+@media (max-width: 30rem) { .footer-nav .dot { display: none; } }
+
+.footer-social, .overlay-social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+.footer-social a, .overlay-social a {
+  display: block;
+  color: var(--night-soft);
+  transition: color 0.35s var(--ease), transform 0.35s var(--ease);
+}
+.footer-social a:hover, .overlay-social a:hover { color: var(--night-ink); transform: translateY(-2px); }
+.footer-social svg, .overlay-social svg { display: block; }
+
+.footer-legal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: clamp(0.5rem, 2vw, 1.5rem);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--night-dim);
+}
+.footer-legal a { color: var(--night-soft); transition: color 0.35s var(--ease); }
+.footer-legal a:hover { color: var(--night-ink); }
+.footer-legal p { margin: 0; }
+.footer-legal .sep { opacity: 0.4; margin-inline: 0.5em; }
 
 /* --------------------------------------------------------------------------
    13. Mentions légales / texte long

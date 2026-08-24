@@ -51,8 +51,9 @@
       nav.classList.toggle('is-over-hero', y < threshold);
       nav.classList.toggle('is-solid', y >= threshold);
     } else {
+      /* Pages sans image plein cadre : le bandeau est visible d'emblée. */
       nav.classList.remove('is-over-hero');
-      nav.classList.toggle('is-solid', y > 8);
+      nav.classList.add('is-solid');
     }
   }
 
