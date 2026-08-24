@@ -372,6 +372,18 @@ h1 em, h2 em, h3 em, .accent {
   color: var(--mark-sub-ink);
 }
 
+/* Marque centrée (héros, pied de page) : la sous-ligne se centre sous
+   « Sauvage » au lieu d'être décalée à droite. Le décalage n'a de sens que
+   si la marque est alignée à gauche.
+   Le padding-left compense la chasse que l'interlettrage ajoute après le
+   « R » final : sans lui, le mot paraîtrait décalé d'un demi-espace. */
+.hero-mark .mark-sub,
+.footer-mark .mark-sub {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.46em;
+}
+
 /* Variante d'une seule ligne : la barre de nav n'a pas la hauteur d'une
    marque empilée, et la sous-ligne y deviendrait illisible. */
 .mark--inline { display: inline-flex; align-items: baseline; gap: 0.85em; }
@@ -581,7 +593,7 @@ h1 em, h2 em, h3 em, .accent {
   position: relative;
   min-height: 100svh;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   color: #fff;
   overflow: hidden;
 }
@@ -599,16 +611,23 @@ h1 em, h2 em, h3 em, .accent {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(10,10,9,0.42) 0%, rgba(10,10,9,0.12) 38%, rgba(10,10,9,0.55) 100%);
+  background: linear-gradient(180deg, rgba(10,10,9,0.40) 0%, rgba(10,10,9,0.30) 22%, rgba(10,10,9,0.46) 52%, rgba(10,10,9,0.38) 100%);
 }
 .hero-inner {
   position: relative;
   z-index: 2;
   width: 100%;
   padding-inline: var(--gutter);
-  padding-bottom: clamp(3rem, 8vh, 6rem);
+  /* Le bloc est centré dans la hauteur de l'image. La barre de nav occupe le
+     haut : on décale d'autant vers le bas pour que le centrage soit optique
+     et pas seulement géométrique.
+     Pour reposer le bloc en bas de l'image comme avant, remplacer cette ligne
+     par « padding-bottom: clamp(3rem, 8vh, 6rem); » et repasser .hero en
+     « align-items: flex-end ». */
+  padding-top: var(--nav-h);
   max-width: 1560px;
   margin-inline: auto;
+  text-align: center;
 }
 .hero-mark {
   --mark-size: clamp(2.75rem, 9.5vw, 8rem);
@@ -623,29 +642,9 @@ h1 em, h2 em, h3 em, .accent {
   font-weight: 300;
   font-size: clamp(1.125rem, 2.1vw, 1.75rem);
   line-height: 1.4;
-  margin: clamp(1rem, 2vw, 1.6rem) 0 0;
+  margin: clamp(1rem, 2vw, 1.6rem) auto 0;
   max-width: 30ch;
   opacity: 0.94;
-}
-
-.scroll-cue {
-  position: absolute;
-  bottom: clamp(1.25rem, 3vh, 2.25rem);
-  right: var(--gutter);
-  z-index: 2;
-  font-size: 0.625rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
-  display: flex;
-  align-items: center;
-  gap: 0.75em;
-}
-.scroll-cue::after {
-  content: "";
-  width: 1px;
-  height: 2.5rem;
-  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0));
 }
 
 /* En-tête de page intérieure */
@@ -1067,6 +1066,6 @@ h1 em, h2 em, h3 em, .accent {
    15. Impression
    -------------------------------------------------------------------------- */
 @media print {
-  .nav, .overlay, .scroll-cue, .lightbox { display: none !important; }
+  .nav, .overlay, .lightbox { display: none !important; }
   body { background: #fff; color: #000; }
 }
