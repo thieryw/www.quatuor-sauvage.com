@@ -35,10 +35,12 @@ Tous les emplacements à compléter sont marqués **`▸▸`** dans les fichiers
 | Accroche du héros | `index.html` et `en/index.html`, `<p class="hero-tagline">` |
 | Identifiant vidéo `VIDEO_ID` | accueil + page médias, FR et EN |
 | Phrase de présentation de la vidéo | accueil, `<p class="lede">` du bloc « À l'affiche » |
-| Adresses e-mail | recherche/remplacement de `contact@quatuorsauvage.com` et `booking@quatuorsauvage.com` |
-| Liens réseaux sociaux | `https://www.instagram.com/` etc. |
-| Crédits photo | `<figcaption>` de `media.html` et `en/media.html` |
 | Mentions légales | adresse du siège, n° RNA, SIRET, directeur de la publication |
+
+Faits : adresses e-mail (`quatuorsauvage@gmail.com`), liens Instagram et YouTube,
+crédits photo (Élise De-Bendelac | Photographie). Facebook a été retiré du site.
+Ces trois éléments sont répétés sur les huit pages : les modifier veut dire
+passer partout (`grep -rn` reste le plus sûr).
 
 ## Les images
 
