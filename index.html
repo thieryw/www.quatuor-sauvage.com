@@ -77,8 +77,13 @@
   <!-- ============================== HÉROS ============================== -->
   <section class="hero">
     <div class="hero-media">
-      <!-- ▸▸ IMAGE : /images/hero.jpg — paysage, min. 2400 px de large -->
-      <img src="images/hero.jpg" alt="Le Quatuor Sauvage en concert" fetchpriority="high">
+      <!-- ▸▸ IMAGE : /images/hero.jpg — paysage, min. 2400 px de large
+           ▸▸ IMAGE : /images/hero-vertical.jpg — portrait, min. 1400 px de large.
+           Le navigateur ne télécharge que celle qui correspond, jamais les deux. -->
+      <picture>
+        <source media="(max-width: 47.999rem) and (orientation: portrait)" srcset="images/hero-vertical.jpg">
+        <img src="images/hero.jpg" alt="Le Quatuor Sauvage en concert" fetchpriority="high">
+      </picture>
     </div>
     <div class="hero-inner">
       <h1 class="hero-mark mark"><span class="mark-main">Sauvage</span><span class="mark-sub">Quatuor</span></h1>

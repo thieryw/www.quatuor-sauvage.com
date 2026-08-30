@@ -48,12 +48,14 @@ modification de code n'est nécessaire.
 | Fichier | Format conseillé | Usage |
 |---|---|---|
 | `hero.jpg` | paysage, ≥ 2400 px de large | photo plein écran de l'accueil |
+| `hero-vertical.jpg` | portrait, ≥ 1400 px de large | même emplacement, sur écran étroit tenu à la verticale (sert aussi de fond au menu) |
 | `portrait-fabian.jpg` | portrait 3:4, ≥ 900 px | bio |
 | `portrait-helia.jpg` | portrait 3:4 | bio |
 | `portrait-carolina.jpg` | portrait 3:4 | bio |
 | `portrait-william.jpg` | portrait 3:4 | bio |
 | `quartet-01.jpg` … `quartet-09.jpg` | libre (recadrage automatique) | grille médias + aperçu accueil |
 | `contact.jpg` | paysage large | bandeau bas de la page contact |
+| `contact-vertical.jpg` | portrait, ≥ 1400 px de large | même bandeau, sur écran étroit tenu à la verticale |
 | `og-image.jpg` | **1200 × 630 px exactement** | vignette de partage réseaux sociaux |
 
 Ajouter une photo à la grille : dupliquer un bloc `<figure>` dans `media.html`.

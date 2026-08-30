@@ -107,8 +107,12 @@
   </section>
 
   <div class="bleed reveal">
-    <!-- ▸▸ IMAGE : /images/contact.jpg — paysage large -->
-    <img src="images/contact.jpg" alt="Le Quatuor Sauvage" loading="lazy">
+    <!-- ▸▸ IMAGE : /images/contact.jpg — paysage large
+         ▸▸ IMAGE : /images/contact-vertical.jpg — portrait, min. 1400 px de large -->
+    <picture>
+      <source media="(max-width: 47.999rem) and (orientation: portrait)" srcset="images/contact-vertical.jpg">
+      <img src="images/contact.jpg" alt="Le Quatuor Sauvage" loading="lazy">
+    </picture>
   </div>
 
 </main>

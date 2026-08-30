@@ -511,6 +511,11 @@ h1 em, h2 em, h3 em, .accent {
   filter: grayscale(0.35) brightness(0.45) contrast(1.05);
   pointer-events: none;
 }
+/* En portrait étroit, le menu prend la version verticale, comme le héros.
+   Si le chemin ci-dessus change, changer aussi celui-ci. */
+@media (max-width: 47.999rem) and (orientation: portrait) {
+  .overlay::before { background-image: url("../images/hero-vertical.jpg"); }
+}
 /* la lumière rasante + le grain, comme au pied de page */
 .overlay::after {
   content: "";
@@ -600,6 +605,14 @@ h1 em, h2 em, h3 em, .accent {
 .hero-media {
   position: absolute;
   inset: 0;
+}
+/* <picture> est une boîte en ligne de hauteur automatique : sans cette règle,
+   le « height: 100% » de l'image n'aurait plus de hauteur de référence et
+   retomberait à la hauteur naturelle de la photo. */
+.hero-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .hero-media img {
   width: 100%;
@@ -720,6 +733,7 @@ h1 em, h2 em, h3 em, .accent {
   width: 100%;
   margin-block: 0;
 }
+.bleed picture { display: block; }
 .bleed img {
   width: 100%;
   height: clamp(20rem, 62vh, 46rem);
