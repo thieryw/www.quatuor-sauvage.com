@@ -9,18 +9,24 @@
     <loc>https://www.quatuorsauvage.com/</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.quatuorsauvage.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.quatuorsauvage.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.quatuorsauvage.com/es/"/>
   </url>
   <url>
     <loc>https://www.quatuorsauvage.com/media.html</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.quatuorsauvage.com/media.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.quatuorsauvage.com/en/media.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.quatuorsauvage.com/es/media.html"/>
   </url>
   <url>
     <loc>https://www.quatuorsauvage.com/contact.html</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.quatuorsauvage.com/contact.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.quatuorsauvage.com/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.quatuorsauvage.com/es/contact.html"/>
   </url>
   <url><loc>https://www.quatuorsauvage.com/en/</loc></url>
   <url><loc>https://www.quatuorsauvage.com/en/media.html</loc></url>
   <url><loc>https://www.quatuorsauvage.com/en/contact.html</loc></url>
+  <url><loc>https://www.quatuorsauvage.com/es/</loc></url>
+  <url><loc>https://www.quatuorsauvage.com/es/media.html</loc></url>
+  <url><loc>https://www.quatuorsauvage.com/es/contact.html</loc></url>
 </urlset>

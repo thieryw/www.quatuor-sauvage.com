@@ -396,9 +396,11 @@ h1 em, h2 em, h3 em, .accent {
   margin-right: -0.34em;
 }
 
-/* Écrans très étroits (≤ 340 px) : la barre de nav n'a plus la place pour
-   les deux mots, « Sauvage » suffit. */
-@media (max-width: 21.25rem) {
+/* Écrans étroits (≤ 376 px) : entre la marque et le sélecteur de langue à
+   trois entrées, la barre de nav n'a plus la place pour les deux mots ;
+   « Sauvage » suffit. Seuil relevé de 340 à 376 px lors de l'ajout de
+   l'espagnol — le repasser à 21.25rem si une langue est retirée. */
+@media (max-width: 23.5rem) {
   .mark--inline .mark-sub { display: none; }
 }
 

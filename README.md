@@ -13,6 +13,8 @@ le site fonctionne donc aussi bien sous un sous-dossier de projet
   mentions-legales.html
 /en/                  anglais (mêmes pages)
   index.html  media.html  contact.html  legal-notice.html
+/es/                  espagnol (mêmes pages)
+  index.html  media.html  contact.html  aviso-legal.html
 /css/style.css        toute la mise en forme
 /js/main.js           menu plein écran, barre de nav, apparitions, visionneuse
 /fonts/               polices auto-hébergées (.woff2) — ne pas renommer
@@ -39,7 +41,7 @@ Tous les emplacements à compléter sont marqués **`▸▸`** dans les fichiers
 
 Faits : adresses e-mail (`quatuorsauvage@gmail.com`), liens Instagram et YouTube,
 crédits photo (Élise De-Bendelac | Photographie). Facebook a été retiré du site.
-Ces trois éléments sont répétés sur les huit pages : les modifier veut dire
+Ces trois éléments sont répétés sur les douze pages : les modifier veut dire
 passer partout (`grep -rn` reste le plus sûr).
 
 ## Les images
@@ -112,7 +114,7 @@ chose"`. Depuis la racine, `href="media.html"` ; depuis `/en/`,
    - pour le domaine nu, quatre enregistrements `A` vers
      `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
 4. Réactiver les balises `canonical`, `hreflang` et `og:` commentées en tête des
-   huit pages (`grep -rn "▸▸ DOMAINE" .`), en y mettant le vrai domaine, puis
+   douze pages (`grep -rn "▸▸ DOMAINE" .`), en y mettant le vrai domaine, puis
    mettre à jour `sitemap.xml` et `robots.txt`.
 
 Les chemins internes, eux, n'ont rien à changer.
@@ -159,9 +161,21 @@ visionneuse ont besoin d'un serveur pour se comporter normalement.
   l'ensemble ; l'angle et l'intensité de la lumière sont dans le dégradé de
   `.footer::before`. Les icônes sociales sont des SVG en ligne (tracé, pas de
   fichier ni de police d'icônes) : elles héritent de `currentColor`.
-  Le pied de page est identique sur les huit pages — modifier un lien veut
+  Le pied de page est identique sur les douze pages — modifier un lien veut
   dire le modifier dans les quatre fichiers de la langue concernée.
 - Accessibilité : lien d'évitement, focus visible, `aria-expanded` sur le menu,
   visionneuse pilotable au clavier (`Échap`, `←`, `→`), `prefers-reduced-motion`
   respecté.
-- Les deux langues partagent la même feuille de style et le même script.
+- Les trois langues partagent la même feuille de style et le même script.
+- Langues : français à la racine, anglais dans `/en/`, espagnol dans `/es/`.
+  Les noms de fichiers sont identiques d'une langue à l'autre, sauf la page
+  légale : `mentions-legales.html`, `en/legal-notice.html`, `es/aviso-legal.html`.
+  Ajouter une page veut dire l'ajouter trois fois, et reporter le lien dans le
+  menu et le pied de page des douze fichiers.
+- Sélecteur de langue : `FR / EN / ES` dans la barre de nav, chaque entrée
+  pointant vers la **même** page dans l'autre langue (et non vers l'accueil).
+  Avec trois entrées la barre est plus large : en dessous de 376 px, la marque
+  de la barre de nav n'affiche plus que « Sauvage » (seuil dans `css/style.css`,
+  `@media (max-width: 23.5rem)`).
+- La version espagnole de la page légale porte une mention indiquant que la
+  version française fait foi.
