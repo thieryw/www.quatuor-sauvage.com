@@ -54,8 +54,13 @@ modification de code n'est nécessaire.
 | `portrait-carolina.jpg` | portrait 3:4 | bio |
 | `portrait-william.jpg` | portrait 3:4 | bio |
 | `quartet-01.jpg` … `quartet-09.jpg` | libre (recadrage automatique) | grille médias + aperçu accueil |
-| `contact.jpg` | paysage large | bandeau bas de la page contact |
+| `contact.jpg` | paysage large | bandeau bas de la page contact — affiché entier, sans recadrage : **c'est le format du fichier qui fixe la hauteur du bandeau** |
 | `contact-vertical.jpg` | portrait, ≥ 1400 px de large | même bandeau, sur écran étroit tenu à la verticale |
+
+En remplaçant l'une de ces deux photos par une image d'un autre format, penser à
+reporter ses dimensions dans les attributs `width` / `height` du bloc `<picture>`
+de `contact.html` et `en/contact.html` : ils servent à réserver la place avant
+l'arrivée de la photo.
 | `og-image.jpg` | **1200 × 630 px exactement** | vignette de partage réseaux sociaux |
 
 Ajouter une photo à la grille : dupliquer un bloc `<figure>` dans `media.html`.

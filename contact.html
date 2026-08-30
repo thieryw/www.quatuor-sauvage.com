@@ -108,10 +108,13 @@
 
   <div class="bleed reveal">
     <!-- ▸▸ IMAGE : /images/contact.jpg — paysage large
-         ▸▸ IMAGE : /images/contact-vertical.jpg — portrait, min. 1400 px de large -->
+         ▸▸ IMAGE : /images/contact-vertical.jpg — portrait, min. 1400 px de large
+         Les width/height ci-dessous sont les dimensions réelles des fichiers.
+         En remplacer un par une photo d'un autre format : mettre les nouveaux
+         chiffres, sinon la page sursaute au chargement. -->
     <picture>
-      <source media="(max-width: 47.999rem) and (orientation: portrait)" srcset="images/contact-vertical.jpg">
-      <img src="images/contact.jpg" alt="Le Quatuor Sauvage" loading="lazy">
+      <source media="(max-width: 47.999rem) and (orientation: portrait)" srcset="images/contact-vertical.jpg" width="800" height="1199">
+      <img src="images/contact.jpg" alt="Le Quatuor Sauvage" width="2991" height="1332" loading="lazy">
     </picture>
   </div>
 

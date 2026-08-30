@@ -734,10 +734,15 @@ h1 em, h2 em, h3 em, .accent {
   margin-block: 0;
 }
 .bleed picture { display: block; }
+/* Hauteur libre : l'image se déploie dans ses proportions réelles, rien n'est
+   rogné. C'est le recadrage du fichier qui décide de la hauteur du bandeau.
+   Les attributs width/height posés sur <img> et <source> dans le HTML servent
+   au navigateur à réserver la place avant que la photo n'arrive : sans eux,
+   le pied de page remonte puis redescend au chargement. */
 .bleed img {
+  display: block;
   width: 100%;
-  height: clamp(20rem, 62vh, 46rem);
-  object-fit: cover;
+  height: auto;
 }
 
 .duo {
